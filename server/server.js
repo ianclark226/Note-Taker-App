@@ -2,38 +2,36 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const path = require('path');
+const bodyParser = require('body-parser');
+const apiRouter = require('./api');
 
 app.use(express.static('public'));
 
-app.get('/', (_, res) => {
-    const filePath = path.resolve(__dirname, '..', 'public','index.html');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
-    res.sendFile(filePath);
+app.get('/', (_, res) => {
+	const filePath = path.resolve(__dirname, 'public', 'index.html');
+
+	res.sendFile(filePath);
 });
 
 app.get('/notes', (_, res) => {
-    const filePath = path.resolve(__dirname, '..', 'public', 'notes.html');
+	const filePath = path.resolve(__dirname, 'public', 'notes.html');
 
-    res.sendFile(filePath);
+	res.sendFile(filePath);
 });
 
-app.get('/index.js', (_, res) => {
-    const filePath = path.resolve(__dirname, '..', 'public', 'notes.html');
-
-    res.sendFile(filePath);
-});
-
-
+app.use('/api', apiRouter);
 
 app.use('*', (_, res) => {
-    res.redirect('/');
+	res.redirect('/');
 });
 
 
-
-
-
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}!`)
+app.listen(port, async () => {
+	console.log(`Example app listening on port ${port}!`)
 });
 
