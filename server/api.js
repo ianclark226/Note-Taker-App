@@ -6,10 +6,10 @@ const fs = require('fs').promises;
 
 const apiRouter = express.Router();
 
-const dbFilePath = path.resolve(__dirname, '..', 'data', 'data.json');
+const dataFilePath = path.resolve(__dirname, '..', 'data', 'data.json');
 
 async function readData() {
-	const fileData = await fs.readFile(dbFilePath, 'utf-8');
+	const fileData = await fs.readFile(dataFilePath, 'utf-8');
 	data = JSON.parse(fileData);
 
 	return data;
@@ -35,7 +35,7 @@ apiRouter.post('/notes', async (req, res) => {
 		text
 	};
 
-	await fs.writeFile(dbFilePath, JSON.stringify(data));
+	await fs.writeFile(dataFilePath, JSON.stringify(data));
 
 	res.json({
 		success: true
@@ -51,7 +51,7 @@ apiRouter.delete('/notes/:id', async (req, res) => {
 		delete data[noteId];
 	}
 
-	await fs.writeFile(dbFilePath, JSON.stringify(data));
+	await fs.writeFile(dataFilePath, JSON.stringify(data));
 
 	res.json({
 		success: true
