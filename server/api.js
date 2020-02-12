@@ -1,11 +1,12 @@
+const shortid = require('shortid');
 const express = require('express');
 const path = require('path');
-const shortid = require('shortid');
+
 const fs = require('fs').promises;
 
 const apiRouter = express.Router();
 
-const dbFilePath = path.resolve(__dirname, '..', 'db', 'db.json');
+const dbFilePath = path.resolve(__dirname, '..', 'data', 'data.json');
 
 async function readData() {
 	const fileData = await fs.readFile(dbFilePath, 'utf-8');
@@ -25,7 +26,8 @@ apiRouter.post('/notes', async (req, res) => {
 
 	const { title, text } = req.body;
 
-	const id = shortid.generate();
+    const id = shortid.generate();
+    
 
 	data[id] = {
 		id,
