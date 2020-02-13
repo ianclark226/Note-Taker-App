@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = 3000;
+const PORT = process.env.PORT || 3000;
 const path = require('path');
 const bodyParser = require('body-parser');
 const apiRouter = require('./api');
@@ -31,7 +31,7 @@ app.use('*', (_, res) => {
 });
 
 
-app.listen(port, async () => {
-	console.log(`Example app listening on port ${port}!`)
+app.listen(PORT, async () => {
+	console.log(`Example app listening on port ${PORT}!`)
 });
 
