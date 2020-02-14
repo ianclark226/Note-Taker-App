@@ -3,7 +3,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const path = require('path');
 const bodyParser = require('body-parser');
-const apiRouter = require('./api');
+const apiRouter = require('./server/api');
 
 app.use(express.static('public'));
 
@@ -13,13 +13,13 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.get('/', (_, res) => {
-	const filePath = path.resolve(__dirname, '..', 'public', 'index.html');
+	const filePath = path.resolve(__dirname, 'public', 'index.html');
 
 	res.sendFile(filePath);
 });
 
 app.get('/notes', (_, res) => {
-	const filePath = path.resolve(__dirname, '..', 'public', 'notes.html');
+	const filePath = path.resolve(__dirname, 'public', 'notes.html');
 
 	res.sendFile(filePath);
 });
